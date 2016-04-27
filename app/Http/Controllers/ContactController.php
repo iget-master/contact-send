@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContactRequest;
 
 use App\Http\Requests;
+use App\Site;
 
 class ContactController extends Controller
 {
@@ -16,12 +17,14 @@ class ContactController extends Controller
 
     /**
      * @param \App\Http\Requests\ContactRequest $request
+     * @param \App\Site $site
      * @return \Illuminate\Http\JsonResponse
      */
-    public function send(ContactRequest $request) {
+    public function send(ContactRequest $request, Site $site) {
         $data = $request->all();
-        \Mail::send('emails.contact', compact('data'), function($mail) use ($request) {
-            $mail->to('contato@iget.com.br', 'Contato');
+        \Mail::send('emails.contact', compact('data'), function($mail) use ($request, $site) {
+            $mail->from($site->sender_mail, $site->sender_name);
+            $mail->to($site->recipient_mail, $site->recipient_name);
             $mail->subject("Contato através do site: " . $request->get('subject'));
         });
 

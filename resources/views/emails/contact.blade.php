@@ -8,5 +8,3 @@
 
 <p>Mensagem:</p>
 <p>{!! $data['message'] !!}</p>
-
-

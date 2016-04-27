@@ -1,3 +1,3 @@
 <?php
 
-Route::post('/contact', [ 'as' => 'contact', 'uses' => 'ContactController@send' ]);
+Route::post('/contact/{site}', ['as' => 'contact', 'uses' => 'ContactController@send' ]);
